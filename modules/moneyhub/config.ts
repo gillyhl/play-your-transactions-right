@@ -1,4 +1,6 @@
-const config = {
+import { ApiClientConfig } from "@mft/moneyhub-api-client"
+
+const config: ApiClientConfig = {
   resourceServerUrl: "https://api.moneyhub.co.uk/v2.0",
   identityServiceUrl: "https://identity.moneyhub.co.uk/oidc",
   accountConnectUrl: "https://bank-chooser.moneyhub.co.uk/account-connect.js",
@@ -8,7 +10,7 @@ const config = {
     token_endpoint_auth_method: "private_key_jwt",
     id_token_signed_response_alg: "RS256",
     request_object_signing_alg: "RS256",
-    redirect_uri: "http://localhost:3001",
+    redirect_uri: "http://localhost:3000/callback",
     response_type: "code",
     "keys": [
       {

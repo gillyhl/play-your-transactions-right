@@ -1,10 +1,30 @@
 import Image from 'next/image'
-import { Inter, Tilt_Prism } from 'next/font/google'
+import { Tilt_Prism } from 'next/font/google'
+import {useRouter} from "next/router"
+import useLocalStorage from "../hooks/use-local-storage"
+import qs from "querystring"
 
-const inter = Inter({ subsets: ['latin'] })
 const tilt = Tilt_Prism({ subsets: ['latin'] })
 
 export default function Home() {
+  const {query, push} = useRouter()
+  const {getValue, setValue} = useLocalStorage()
+
+  const onButtonClick = (withDescription: boolean) => () => {
+    setValue("withDescription", withDescription)
+    const state = `${new Date().getTime().toString()}${Math.random()}`
+    setValue("state", state)
+    fetch(`/api/moneyhub/connect?${qs.stringify({
+      ...query,
+      state
+    })}`)
+    .then(res => res.json())
+      .then(res => {
+        push(res.url)
+      })
+
+  }
+
   return (
     <main className="container mx-auto">
       <div className="flex min-h-screen flex-col items-center justify-between lg:p-24 p-4">
@@ -26,11 +46,15 @@ export default function Home() {
         </div>
         
         <div className="mb-8 grid text-center grid-cols-2 gap-8 w-full">
-          <button className="bg-green-900 hover:bg-green-700 text-white font-bold py-4 px-4 border-b-4 border-green-700 hover:border-green-500 rounded">
+          <button 
+            className="bg-green-900 hover:bg-green-700 text-white font-bold py-4 px-4 border-b-4 border-green-700 hover:border-green-500 rounded"
+            onClick={onButtonClick(false)}>
             Without Descriptions
           </button>
-          <button className="bg-green-900 hover:bg-green-700 text-white font-bold py-4 px-4 border-b-4 border-green-700 hover:border-green-500 rounded">
-            Without Descriptions
+          <button 
+            className="bg-green-900 hover:bg-green-700 text-white font-bold py-4 px-4 border-b-4 border-green-700 hover:border-green-500 rounded"
+            onClick={onButtonClick(true)}>
+            With Descriptions
           </button>
         </div>
       </div>
