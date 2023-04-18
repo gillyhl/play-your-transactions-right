@@ -20,7 +20,7 @@ export default function Home() {
         </div>
 
         <div className="mb-8 grid text-center">
-          <h1 className={`${tilt.className} mb-3 text-8xl font-semibold`}>
+          <h1 id="gameTitle" className={`${tilt.className} mb-3 text-8xl font-semibold`}>
             Play Your Transactions Right
           </h1>
         </div>
