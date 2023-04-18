@@ -25,3 +25,22 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+/* Overrides */
+html{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  transform: translate(0);
+  left: 0;
+  top: 0;
+  position: fixed;
+}
+
+@media all and (max-width: 768px){
+
+  h1#gameTitle{
+    font-size: 2em;
+  }
+
+}
